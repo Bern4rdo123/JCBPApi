@@ -1,18 +1,13 @@
 const express = require('express');
-const userRoutes = require('./routes/userRoutes');
-const cors = require(`cors`)
+require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Middleware para parsear JSON
 app.use(express.json());
-app.use(cors);
 
-// Integrando as rotas de usuário
-app.use('/api/users', userRoutes);
+const userRoutes = require('./routes/userRoutes');
+app.use('/users', userRoutes);
 
-// Iniciando o servidor
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });

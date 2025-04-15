@@ -1,43 +1,25 @@
-const db = require('../infrastructure/database');
+const userService = require('../application/userApplication');
 
-// Obtém todos os usuários
-exports.getAllUsers = (req, res) => {
-    const users = db.getUsers(); // Supondo que `getUsers` retorna uma lista de usuários
-    res.json(users);
-};
-
-// Obtém um usuário por ID
-exports.getUserById = (req, res) => {
-    const user = db.getUserById(req.params.id);
-    if (user) {
-        res.json(user);
-    } else {
-        res.status(404).send('Usuário não encontrado');
+const getUsers = async (req, res) => {
+    try {
+        const users = await userService.listUsers();
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ error: 'Erro ao buscar usuários' });
     }
 };
 
-// Cria um novo usuário
-exports.createUser = (req, res) => {
-    const newUser = db.createUser(req.body);
-    res.status(201).json(newUser);
-};
-
-// Atualiza um usuário existente
-exports.updateUser = (req, res) => {
-    const updatedUser = db.updateUser(req.params.id, req.body);
-    if (updatedUser) {
-        res.json(updatedUser);
-    } else {
-        res.status(404).send('Usuário não encontrado');
+const createUser = async (req, res) => {
+    const { name, email } = req.body;
+    try {
+        const newUser = await userService.addUser(name, email);
+        res.status(201).json(newUser);
+    } catch (err) {
+        res.status(500).json({ error: 'Erro ao criar usuário' });
     }
 };
 
-// Deleta um usuário
-exports.deleteUser = (req, res) => {
-    const success = db.deleteUser(req.params.id);
-    if (success) {
-        res.status(204).send();
-    } else {
-        res.status(404).send('Usuário não encontrado');
-    }
+module.exports = {
+    getUsers,
+    createUser
 };
