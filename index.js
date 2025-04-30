@@ -5,7 +5,9 @@ const app = express();
 app.use(express.json());
 
 const userRoutes = require('./routes/userRoutes');
+const lojaRoutes = require('./routes/lojasRoutes')
 app.use('/users', userRoutes);
+app.use('/lojas', lojaRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
