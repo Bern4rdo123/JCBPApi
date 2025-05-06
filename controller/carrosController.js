@@ -23,7 +23,7 @@ const GetCarros = async (req, res) => {
 
 const DeleteCarro = async (req, res) => {
     try {
-        const id = req.body;
+        const id = req.query.id;
 
         const result = await CarsRepository.DeleteCar(id);
         return res.status(200).json({ message: "sucessful", result: result })
