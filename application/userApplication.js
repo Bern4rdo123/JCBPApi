@@ -10,10 +10,13 @@ const deleteUser = (userID) => userRepo.deleteUser(userID);
 
 const getUserById = (userID) => userRepo.getUserById(userID);
 
+const ValidateUser = (username, email) => userRepo.ValidateUser(username, email);
+
 module.exports = {
     listUsers,
     addUser,
     editUser,
     deleteUser,
-    getUserById
+    getUserById,
+    ValidateUser
 };

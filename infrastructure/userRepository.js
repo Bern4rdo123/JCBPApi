@@ -50,11 +50,26 @@ const getUserById = async (userID) => {
     }
 }
 
+const ValidateUser = async (username, email) => {
+    try {
+        const result = await pool.query(`SELECT * FROM usuarios WHERE senha=$1 AND email=$2`, [username, email]);
+        if (result.rowCount == 0) {
+            return false
+        }
+        else {
+            return result;
+        }
+    } catch (error) {
+        return false;
+    }
+}
+
 
 module.exports = {
     getAllUsers,
     insertUser,
     updateUser,
     deleteUser,
-    getUserById
+    getUserById,
+    ValidateUser
 };

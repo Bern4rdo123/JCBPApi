@@ -55,10 +55,31 @@ const getUserById = async (req, res) => {
     }
 }
 
+const ValidateUser = async (req, res) => {
+    try {
+        const { senha, email } = req.body;
+
+        const result = await userService.ValidateUser(senha, email);
+
+        if (result == false) {
+            res.status(404).json({ message: "Usuário ou senha inválidos", result: [] })
+        }
+
+        else {
+            res.status(200).json({ message: "", result: result.rows });
+
+        }
+    }
+    catch (error) {
+        return error;
+    }
+}
+
 module.exports = {
     getUsers,
     createUser,
     updateUser,
     deleteUser,
-    getUserById
+    getUserById,
+    ValidateUser
 };
