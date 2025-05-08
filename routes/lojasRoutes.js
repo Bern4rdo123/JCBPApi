@@ -5,6 +5,6 @@ const lojaController = require(`../controller/lojasController`)
 router.post('/insertLoja', lojaController.InsertLoja);
 router.delete('/removeLoja', lojaController.deleteLoja);
 router.get('/getLojas', lojaController.getLojas);
-router.get('/getLojaById', lojaController.getLojasById);
+router.get('/getLojaByUserId', lojaController.getLojasById);
 
 module.exports = router

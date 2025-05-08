@@ -31,12 +31,12 @@ const getLojas = async () => {
     }
 }
 
-const getLojasById = async (id) => {
+const getLojasByUserId = async (id) => {
     try {
         const result = await pool.query(
             `SELECT L.id, L.nome,L.cidade, contato, U.username  FROM lojas L INNER JOIN 
                 usuarios U ON U.id = L.usuario_id 
-                WHERE id=$1
+                WHERE U.id=$1
                 `, [id]
         );
         return result.rows;
@@ -44,4 +44,4 @@ const getLojasById = async (id) => {
         return error
     }
 }
-module.exports = { insertLoja, getLojas, removeLoja, getLojasById }
+module.exports = { insertLoja, getLojas, removeLoja, getLojasByUserId }

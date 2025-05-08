@@ -33,7 +33,7 @@ const getLojas = async () => {
 const getLojasById = async () => {
     try {
         const { id } = req.query.id;
-        const lojas = await getLojasById(id);
+        const lojas = await getLojasByUserId(id);
         res.status(200).json({ message: 'sucessful', result: lojas })
     } catch (error) {
         res.status(400).json({ message: "Erro ao buscar lojas", error: error })
