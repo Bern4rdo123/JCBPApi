@@ -12,7 +12,7 @@ const InsertLoja = async (req, res) => {
 }
 
 const deleteLoja = async (req, res) => {
-    const { id } = req.query.id;
+    const { id } = req.query;
     try {
         const users = await removeLoja(id)
         res.status(200).json({ message: 'sucessful', result: users });
