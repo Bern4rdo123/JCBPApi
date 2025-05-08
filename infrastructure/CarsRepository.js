@@ -20,7 +20,7 @@ const GetCarByID = async (id) => {
 
 const GetCars = async () => {
     try {
-        const result = await pool.query(`SELECT * FROM carros`);
+        const result = await pool.query(`SELECT carros.id, carros.modelo, carros.marca, carros.ano, carros.cor, carros.combustivel, carros.kilometragem, lojas.nome FROM carros INNER JOIN lojas ON carros.id_loja = lojas.id`);
         return result.rows
     } catch (error) {
         return error;
