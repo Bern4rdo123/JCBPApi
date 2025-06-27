@@ -1,4 +1,5 @@
 const userService = require('../application/userApplication');
+const jwt = require("jsonwebtoken")
 
 const getUsers = async (req, res) => {
     try {
@@ -86,7 +87,6 @@ const generateToken = (user) => {
 
     // Crie o payload do token com as informações do usuário
     const payload = {
-        id: user.id,
         username: user.username,
         email: user.email
     };
@@ -102,13 +102,16 @@ const loginUser = async (req, res) => {
 
         // Use a lógica de validação do seu `userService`
         const result = await userService.ValidateUser(senha, email);
+        console.log(result[0]);
 
         if (result === false || result.rowCount === 0) {
             // Se a validação falhar
             return res.status(401).json({ message: "Usuário ou senha inválidos" });
         } else {
-            // Se a validação for bem-sucedida, gere o token e retorne-o
-            const user = result.rows[0]; // Assume que o resultado da query retorna uma linha
+            // Se a validação for bem-sucedida, gere o token e retorne-
+
+            const user = result[0]; // Assume que o resultado da query retorna uma linha
+
             const token = generateToken(user);
             res.status(200).json({ message: "Login bem-sucedido", token: token });
         }
