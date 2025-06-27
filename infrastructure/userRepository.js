@@ -50,19 +50,24 @@ const getUserById = async (userID) => {
     }
 }
 
+//...
 const ValidateUser = async (username, email) => {
+    // O bloco try/catch aqui não é estritamente necessário se você quer que o erro
+    // seja sempre tratado no controller. Mas se mantiver, ele deve relançar o erro.
     try {
         const result = await pool.query(`SELECT * FROM usuarios WHERE senha=$1 AND email=$2`, [username, email]);
-        if (result.rowCount == 0) {
-            return false
-        }
-        else {
-            return result;
+
+        if (result.rowCount > 0) {
+            return result.rows; // Retorna os dados do usuário
+        } else {
+            return null; // Retorna null se não encontrar, para diferenciar de um erro
         }
     } catch (error) {
-        return false;
+        console.error("Erro no repositório ao validar usuário:", error);
+        throw error; // CORREÇÃO: Lança o erro para a camada superior tratar
     }
-}
+};
+//...
 
 
 module.exports = {

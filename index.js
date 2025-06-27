@@ -6,6 +6,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Adicione body-parser para analisar o corpo das requisições JSON.
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 const userRoutes = require('./routes/userRoutes');
 const lojaRoutes = require('./routes/lojasRoutes');
 const carrosRoutes = require('./routes/CarrosRoutes')
